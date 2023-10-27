@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  web_api:
+    container_name: "api"
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      - mysql_db
+    environment:
+      DB_USER: administrator
+      DB_PORT: 3306
+      DB_NAME: portal_web
+      DB_PASS: f214e666b9ededb8acdf0780cc796cf1370a41de47f97810f09ddfbbc237ea3f
+      DB_HOST: mysql_db
+      JWT_SECRET: 0e3c7df922bb25e05de1dc383bb0803f
+      APP_PORT: 8000
+  mysql_db:
+    container_name: "mysql-db"
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: f214e666b9ededb8acdf0780cc796cf1370a41de47f97810f09ddfbbc237ea3f
+      MYSQL_DATABASE: portal_web
+      MYSQL_USER: administrator
+      MYSQL_PASSWORD: f214e666b9ededb8acdf0780cc796cf1370a41de47f97810f09ddfbbc237ea3f
+networks:
+  backend-network:
+    external: true
