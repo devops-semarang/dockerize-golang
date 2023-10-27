@@ -2,7 +2,7 @@ name: Automate Build Docker Image
 on:
   workflow_dispatch:
 jobs:
-  Deploy:
+  build_step:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
@@ -17,3 +17,18 @@ jobs:
         run: |
           go mod download
           GOOS=linux GOARCH=amd64 go build -o bin/main .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/dockerize-golang:latest
