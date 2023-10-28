@@ -16,7 +16,19 @@ docker run --name mysql \
 
 ## Sign in to the Container registry service at ghcr.io.
 
+In this step, you must generate PAT (Personal Access Token) for authentification proces. Create a new personal access token (classic) with the appropriate scopes for the tasks you want to accomplish. If your organization requires SSO, you must enable SSO for your new token.
+- Select the read:packages scope to download container images and read their metadata.
+- Select the write:packages scope to download and upload container images and read and write their metadata.
+- Select the delete:packages scope to delete container images.
+
 ```console
-docker ps
-docker login ghcr.io -u USERNAME --password-stdin
+docker ps # to check docker daemon running or not
+docker login ghcr.io -u USERNAME # to login to GitHub Container Registry
+```
+
+## How to build and push Dockerfile to Docker Image
+
+```console
+docker build . -t ghcr.io/your-username/dockerize-golang:latest
+docker push ghcr.io/your-username/dockerize-golang:latest
 ```

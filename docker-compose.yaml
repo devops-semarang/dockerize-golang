@@ -2,10 +2,9 @@ version: "3.8"
 services:
   web_api:
     container_name: "api"
-    build:
-      dockerfile: ./Dockerfile
+    image: ghcr.io/mrofisr/dockerize-golang:latest
     ports:
-      - 8000:8000
+      - 9000:8000
     restart: always
     depends_on:
       - mysql_db
