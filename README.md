@@ -14,7 +14,7 @@ docker run --name mysql \
         --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ```
 
-## Using the CLI for your container type, sign in to the Container registry service at ghcr.io.
+## Sign in to the Container registry service at ghcr.io.
 
 ```console
 docker ps
